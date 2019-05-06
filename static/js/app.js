@@ -1,17 +1,19 @@
 var slider = document.getElementById(".myRange");
+var output = document.getElementById(".sample");
 output.innerHTML = slider.value; // Display the default slider value
 
 // Update the current slider value (each time you drag the slider handle)
 slider.oninput = function() {
   output.innerHTML = this.value;
+
 }
 
 //init function to execute on first load of index.html.
 function init() {
 
   console.log("in init section.")
-  var notes = d3.select("#notes");
-  var allnotes = document.getElementById('#notes');
+  //var notes = d3.select("#notes");
+  //var allnotes = document.getElementById('#notes');
 
   Plotly.d3.json("/names",function(error,response){
     if(error) console.warn(error);
@@ -136,7 +138,7 @@ function optionChanged(newSample) {
   // var allnotes = document.getElementById('notes');
   //notes.innerHTML = "";
   // allnotes.innerHTML = "";
-  var foundAudio1 = new Audio('/static/audio/Bubbles-SoundBible.com-810959520.mp3');
+  var foundAudio1 = new Audio('/static/audio/Bubbles.mp3');
   foundAudio1.play();
   var output = document.getElementById(".sample");
   output.innerHTML = slider.value; // Display the default slider value
