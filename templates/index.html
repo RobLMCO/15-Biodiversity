@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Belly Button Biodiversity</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <style>
+    body {
+      background-color: rgb(70, 110, 70);
+    }
+
+    .jumbotron {
+      background: #000000 url("/static/images/2hzl.gif") no-repeat bottom left;
+      background-size: 100% 100%;
+      overflow: auto;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      text-decoration-color: antiquewhite;
+    }
+
+    #log-container { overflow: auto; height: 150px; }
+
+    .log-warn { color: orange }
+    .log-error { color: red }
+    .log-info { color: skyblue }
+    .log-log { color: silver }
+
+    .log-warn, .log-error { font-weight: bold; }
+
+    .slidecontainer {
+  width: 100%; /* Width of the outside container */
+}
+
+/* The slider itself */
+.slider {
+  -webkit-appearance: none;  /* Override default CSS styles */
+  appearance: none;
+  width: 100%; /* Full-width */
+  height: 25px; /* Specified height */
+  background: #d3d3d3; /* Grey background */
+  outline: none; /* Remove outline */
+  opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+  -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+  transition: opacity .2s;
+}
+
+/* Mouse-over effects */
+.slider:hover {
+  opacity: 1; /* Fully shown on mouse-over */
+}
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */ 
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  width: 25px; /* Set a specific slider handle width */
+  height: 25px; /* Slider handle height */
+  background: #4CAF50; /* Green background */
+  cursor: pointer; /* Cursor on hover */
+}
+
+.slider::-moz-range-thumb {
+  width: 25px; /* Set a specific slider handle width */
+  height: 25px; /* Slider handle height */
+  background: #4CAF50; /* Green background */
+  cursor: pointer; /* Cursor on hover */
+}
+
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 jumbotron text-center">
+        <h1 style="color: blue"> Belly Button Biodiversity Dashboard</h1>
+        <h1></h1>
+        <h1></h1>
+        <h3 style="color: white">Interactive charts  to explore the Belly button biodiversity dataset</h3>
+        <h1></h1>
+      </div>
+    </div>
+    
+	<div class="row">
+		<div class="col-md-6">
+		<br>
+		</div>
+	</div>
+    <div class="row">
+      <div class="col-md-2">
+        <div class="well">
+          <img src="/static/images/n9C.gif" style="width:100%; height:100%"></img>
+          <h5>SELECT Sample:</h5>
+          <div class="slidecontainer">
+            <input type="range" min="940" max="1601" value="1" class="slider" id="myRange" onchange="optionChanged(this.value)">
+       
+          </div>
+          <select id="selDataset" onchange="optionChanged(this.value)"></select>
+          
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+              <h3 class="panel-title">Sample MetaData</h3>
+            </div>
+            <div id="sample-metadata" class="panel-body metadata">
+            <img src="/static/images/MZus.gif" style="width:100%; height:100%"></img>
+        </div>
+        <br>
+        <br>
+          </div>
+      </div>
+      <div class="col-md-3">
+        <div id="pie"></div>
+	  </div>
+      <div class="col-md-2">
+        <div id="gauge"></div>
+        <img src="/static/images/2a89.gif" style="width:100%; height:100%"></img> 
+      </div>
+    </div>
+  </div>
+  <div class="row">
+      <div class="col-md-2"></div>
+    <div class="col-md-4">
+      <div id="bubble"></div>
+    </div>
+  </div>
+  
+  
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/bonus.js') }}"></script>
+  
+  
+  <!--
+  <script src="{{ url_for('static', filename='js/carpe_slider.js') }}"></script>
+  <script>
+    !function(o){console.old=console.log,console.log=function(){var n,e,t="";for(e=0;e<arguments.length;e++)t+='<div id="notes"><span style="height:300px;width:700px;border:1px solid #ccc;font:16px/26px Georgia,Garamond,Serif;overflow-x:hidden;overflow-y:auto;background-color:#white" class="log-'+typeof(n=arguments[e])+'">',"object"==typeof n&&"object"==typeof JSON&&"function"==typeof JSON.stringify?t+=JSON.stringify(n):t+=n,t+="</span></div>;";o.innerHTML+=t+"<br>",console.old.apply(void 0,arguments)}}
+    (document.body); 
+  </script>
+  -->
+</body>
+
+</html>
