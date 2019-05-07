@@ -1,20 +1,20 @@
-var slider = document.getElementById(".myRange");
-var output = document.getElementById(".sample");
-output.innerHTML = slider.value; // Display the default slider value
+var slider = document.getElementById("myRange");
+var output = document.getElementById("sample");
+
 
 // Update the current slider value (each time you drag the slider handle)
 slider.oninput = function() {
   output.innerHTML = this.value;
-
+  optionChanged(this.value);
+  //console.log(this.value);
 }
 
 //init function to execute on first load of index.html.
 function init() {
 
-  console.log("in init section.")
-  //var notes = d3.select("#notes");
-  //var allnotes = document.getElementById('#notes');
+  console.log("Initialising...")
 
+  var selector = d3.select("#selDataset");
   Plotly.d3.json("/names",function(error,response){
     if(error) console.warn(error);
     var dropdown_select = Plotly.d3.select("#selDataset");
@@ -22,46 +22,44 @@ function init() {
        dropdown_select.append("option").attr("value",response[i]).text(response[i]);
    }
    
-   console.log("in /names ", response)
-   console.log(response)
+   console.log("Names array: ", response)
    optionChanged(response[0]);
   });
 }
 
 function buildMetadata(sample) {
-  console.log("in buildMetadata:  ")
+  console.log("Building metadata... ")
   console.log("sample:  " + sample)
-  // @TODO: Complete the following function that builds the metadata panel
 
-  // Use `d3.json` to fetch the metadata for a sample
   var url="/metadata/"+sample;
 
   console.log(url);
-  // Use d3 to select the panel with id of `#sample-metadata`
   d3.json(url).then(function(response){
-    // if(error) {console.warn(error)};
+    try {
+      console.log("Throwing Error...");
+      throw({message:"Ouch!"});
+  } catch(e) {
     console.log(response);
     var metadata_Sample= d3.select("#sample-metadata");
-    // Remove old metadata
     metadata_Sample.selectAll("p").remove();
-    metadata_Sample.text("No Sample");
+    
 
     for(var key in response){
         if(response.hasOwnProperty(key)){
             metadata_Sample.append("p").text(key + ":   " + response[key]);
-        }
+        } 
     }
-    console.log("Exiting  buildMetadata   ")
+    console.log("End of metadata")
     buildGauge(response.WFREQ);
-});
+  }
+}, 500);
 }  
     
 //function to build a pie chart based on 10 samples. 
 function Plotpie(sample){
-  console.log("starting of plot for Pie Chart");
+  console.log("Pie Chart");
   var descriptions=[];
   d3.json("/samples/" + sample).then(function(response){
-    console.log('Plot Pie Inside');
     console.log(response);
       var pielabels=response['otu_ids'].slice(0,11);
       var pievalues=response['sample_values'].slice(0,11);
@@ -90,10 +88,8 @@ function Plotpie(sample){
 function Plotscatter(sample){
   console.log("Plotting Scatter Plot");
       d3.json("/samples/"+sample).then(function(response){
-      console.log("In plotscatter, logging response next")
       console.log(response)
       var scatter_description = response['otu_labels'];
-      console.log("logging scatter_description list")
       console.log(scatter_description.slice(0,10))
       var trace1 = {
           x: response['otu_ids'],
@@ -128,6 +124,8 @@ function Plotscatter(sample){
       console.log(layout)
       console.log("starting scatter plot/bubble chart")
       Plotly.newPlot("bubble",data,layout);
+      var foundAudio1 = new Audio('static/audio/Bubbles-SoundBible.com-810959520.mp3');
+      foundAudio1.play();
       
   })
 }
@@ -138,9 +136,9 @@ function optionChanged(newSample) {
   // var allnotes = document.getElementById('notes');
   //notes.innerHTML = "";
   // allnotes.innerHTML = "";
-  var foundAudio1 = new Audio('/static/audio/Bubbles.mp3');
-  foundAudio1.play();
-  var output = document.getElementById(".sample");
+ 
+  var output = document.getElementById("sample");
+  var slider = document.getElementById("myRange");
   output.innerHTML = slider.value; // Display the default slider value
   console.log("optionchanged detected and new sample selected")
   console.log("new sample: " + newSample )
